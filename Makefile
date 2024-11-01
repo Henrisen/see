@@ -97,6 +97,8 @@ check_see_removeable:
 install_see:
 	@sudo cp ./see /usr/bin/see
 	@sudo cp ./see /bin/see
+	@sudo chmod +x /usr/bin/see
+	@sudo chmod +x /bin/see
 	@echo "----------------------------------------------------------------"
 
 uninstall_see:
