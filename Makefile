@@ -77,10 +77,10 @@ check_remove_pygments:
 	fi
 
 install_pygments:
-	@pip install Pygments
+	@pip install Pygments 2>/dev/null
 
 remove_pygments:
-	@pip uninstall -y Pygments
+	@pip uninstall -y Pygments 2>/dev/null
 
 check_see:
 	@if command -v see &> /dev/null; then \
