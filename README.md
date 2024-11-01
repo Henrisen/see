@@ -4,7 +4,7 @@
 
 ## Summary
 
-A Simple File Viewer with Syntax Highlighting
+A Simple File Viewer with Syntax Highlighting for Linux and MacOS
 
 ## Installing
 
