@@ -1,5 +1,7 @@
 # See
 
+[![Makefile CI](https://github.com/Henrisen/see/actions/workflows/makefile.yml/badge.svg)](https://github.com/Henrisen/see/actions/workflows/makefile.yml)
+
 ## Summary
 
 A Simple File Viewer with Syntax Highlighting
