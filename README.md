@@ -6,6 +6,8 @@
 
 A Simple File Viewer with Syntax Highlighting for Linux and MacOS
 
+![Screenshot of see](https://github.com/Henrisen/see/blob/main/.github/resources/1.png?raw=true)
+
 ## Installing
 
 The `see` tool is a command-line utility for viewing files in a user-friendly manner. Follow the steps below to install `see` on your supported operating systems. Ensure you have Git and `make` installed.
