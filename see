@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Error: No file provided."
+    exit 1
+fi
+
+if [ ! -f "$1" ]; then
+    echo "Error: File '$1' does not exist."
+fi
+
+cat "$1" | pygmentize -g | nl -ba -w $(wc -l < "$1" | awk '{print length}') -s $' | \033[0m' | sed 's/^/\x1b[90m/' | less -R
