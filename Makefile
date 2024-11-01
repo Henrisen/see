@@ -2,7 +2,12 @@ SHELL := /bin/bash
 
 .PHONY: all check_sudo check_python install_python check_pip install_pip check_pygments install_pygments check_see install_see success
 
-all: check_sudo check_python check_pip check_pygments check_see install_see success
+all: no_command
+install: check_sudo check_python check_pip check_pygments check_see install_see success
+uninstall: check_sudo check_see_removeable
+
+no_command:
+	@echo "Invalid Command"
 
 check_sudo:
 	@if [ "$$EUID" -ne 0 ]; then \
@@ -66,9 +71,21 @@ check_see:
 		echo "See is not installed. Proceeding to install..."; \
 	fi
 
+check_see_removeable:
+	@if command -v see &> /dev/null; then \
+		make uninstall_see; \
+	else \
+		echo "See is not installed."; \
+	fi
+
 install_see:
 	@sudo cp ./see /usr/bin/see
 	@sudo cp ./see /bin/see
+
+uninstall_see:
+	@sudo rm -f /usr/bin/see
+	@sudo rm -f /bin/see
+	make uninstall_success
 
 success:
 	@echo "----------------------------------------------------------------"
@@ -78,3 +95,10 @@ success:
 	@echo "Success!"
 	@echo "See is now installed"
 
+uninstall_success:
+	@echo "----------------------------------------------------------------"
+	@echo "----------------------------------------------------------------"
+	@echo "----------------------------------------------------------------"
+	@echo ""
+	@echo "Success!"
+	@echo "See is now removed"
