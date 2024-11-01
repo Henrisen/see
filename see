@@ -32,4 +32,9 @@ if [ ! -f "$1" ]; then
     exit 1
 fi
 
-cat "$1" | pygmentize -g | nl -ba -w $(wc -l < "$1" | awk '{print length}') -s $' | \033[0m' | sed 's/^/\x1b[90m/' | less -R
+pygmentize -g "$1" | \
+    nl -ba -w \
+        $(wc -l < "$1" | awk '{print length}') \
+    -s $' | \033[0m' | \
+    sed 's/^/\x1b[90m/' | \
+    less -R
