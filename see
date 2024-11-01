@@ -1,8 +1,30 @@
 #!/bin/bash
 
+function help () {
+    echo "Usage: see [OPTION...] FILE"
+    echo ""
+    echo "  -v --version    Print version information"
+    echo "  --help          Show this screen"
+    echo ""
+    echo "Mandatory or optional arguments to long options are also mandatory or optional"
+    echo "for any corresponding short options."
+    echo ""
+    echo "Report bugs to henri.sendelbach+see@proton.me."
+}
+
 if [ -z "$1" ]; then
-    echo "Error: No file provided."
-    exit 1
+    help;
+    exit 1;
+fi
+
+if [ "$1" == "-v" ] || [ "$1" == "--version" ]; then
+    echo "See v1.0.0"
+    exit 0
+fi
+
+if [ "$1" == "--help" ]; then
+    help;
+    exit 0
 fi
 
 if [ ! -f "$1" ]; then

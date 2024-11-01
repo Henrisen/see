@@ -1,13 +1,20 @@
 SHELL := /bin/bash
 
-.PHONY: all check_sudo check_python install_python check_pip install_pip check_pygments install_pygments check_see install_see success
+.PHONY: help
 
 all: no_command
+help: no_command
 install: check_sudo check_python check_pip check_pygments check_see install_see success
-uninstall: check_sudo check_see_removeable
+uninstall: check_sudo check_see_removeable uninstall_see uninstall_success
+full-uninstall: check_sudo check_python check_pip check_remove_pygments check_see_removeable uninstall_see uninstall_success
 
 no_command:
-	@echo "Invalid Command"
+	@echo "Usage: make [command]"
+	@echo ""
+	@echo "  help             This Screen"
+	@echo "  install          Install see"
+	@echo "  uninstall        Uninstall see"
+	@echo "  full-uninstall   Uninstall see and installed requirements"
 
 check_sudo:
 	@if [ "$$EUID" -ne 0 ]; then \
@@ -61,8 +68,19 @@ check_pygments:
 		echo "Pygments is already installed."; \
 	fi
 
+check_remove_pygments:
+	@if pip show Pygments &> /dev/null; then \
+		echo "Pygments is installed. Removing..."; \
+		make remove_pygments; \
+	else \
+		echo "Pygments is already removed."; \
+	fi
+
 install_pygments:
 	@pip install Pygments
+
+remove_pygments:
+	@pip uninstall -y Pygments
 
 check_see:
 	@if command -v see &> /dev/null; then \
@@ -72,33 +90,25 @@ check_see:
 	fi
 
 check_see_removeable:
-	@if command -v see &> /dev/null; then \
-		make uninstall_see; \
-	else \
-		echo "See is not installed."; \
+	@if ! command -v see &> /dev/null; then \
+		echo "See is already remooved."; \
 	fi
 
 install_see:
 	@sudo cp ./see /usr/bin/see
 	@sudo cp ./see /bin/see
+	@echo "----------------------------------------------------------------"
 
 uninstall_see:
 	@sudo rm -f /usr/bin/see
 	@sudo rm -f /bin/see
-	make uninstall_success
+	@echo "----------------------------------------------------------------"
 
 success:
-	@echo "----------------------------------------------------------------"
-	@echo "----------------------------------------------------------------"
-	@echo "----------------------------------------------------------------"
 	@echo ""
 	@echo "Success!"
 	@echo "See is now installed"
 
 uninstall_success:
-	@echo "----------------------------------------------------------------"
-	@echo "----------------------------------------------------------------"
-	@echo "----------------------------------------------------------------"
-	@echo ""
 	@echo "Success!"
 	@echo "See is now removed"
