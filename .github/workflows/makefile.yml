@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Install
-      run: make install
+      run: sudo make install
 
     - name: Run check
       run: cat /usr/bin/see
