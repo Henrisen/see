@@ -1,0 +1,130 @@
+#!/bin/bash
+
+# Step 0: Check if /bin/see or /usr/bin/see exists
+if [ -f /bin/see ] || [ -f /usr/bin/see ]; then
+    echo "Error: The file '/bin/see' or '/usr/bin/see' already exists. Aborting."
+    exit 1
+fi
+
+# Step 1: Check if the script is run with sudo
+if [ "$(id -u)" -ne 0 ]; then
+    echo "Error: This script must be run with sudo. Aborting."
+    exit 1
+fi
+
+# Step 2: Check if sudo is installed
+if ! command -v sudo &>/dev/null; then
+    echo "Sudo is not installed. Installing..."
+    
+    # Detect the OS and install sudo
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        if command_exists apt; then
+            apt update && apt install -y sudo
+        elif command_exists yum; then
+            yum install -y sudo
+        elif command_exists dnf; then
+            dnf install -y sudo
+        elif command_exists pacman; then
+            pacman -S --noconfirm sudo
+        else
+            echo "Unsupported Linux distribution. Please install sudo manually."
+            exit 1
+        fi
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "On macOS, sudo should already be available."
+    elif [[ "$OSTYPE" == "msys" ]]; then
+        echo "On WSL, sudo should already be available."
+    else
+        echo "Unsupported OS. Please install sudo manually."
+        exit 1
+    fi
+else
+    echo "Sudo is installed."
+fi
+
+# Step 3: Install git and make if not installed
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+install_required_packages() {
+    if ! command_exists git || ! command_exists make; then
+        echo "Git and/or Make are not installed. Installing..."
+
+        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            if command_exists apt; then
+                sudo apt update && sudo apt install -y git make
+            elif command_exists yum; then
+                sudo yum install -y git make
+            elif command_exists dnf; then
+                sudo dnf install -y git make
+            elif command_exists pacman; then
+                sudo pacman -S --noconfirm git make
+            else
+                echo "Unsupported Linux distribution. Please install Git and Make manually."
+                exit 1
+            fi
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            # For macOS
+            brew install git make
+        elif [[ "$OSTYPE" == "msys" ]]; then
+            # For WSL (Windows Subsystem for Linux)
+            sudo apt update && sudo apt install -y git make
+        else
+            echo "Unsupported OS. Please install Git and Make manually."
+            exit 1
+        fi
+    else
+        echo "Git and Make are already installed."
+    fi
+}
+
+install_required_packages
+
+# Step 4: Check if /tmp is writable or create ~/.tmp
+check_and_create_dir() {
+    if [ -w /tmp ]; then
+        echo "Using /tmp directory."
+        cd /tmp
+    else
+        if [ ! -d ~/.tmp ]; then
+            mkdir ~/.tmp
+        fi
+        if [ -f ~/.tmp/see ]; then
+            rm ~/.tmp/see
+        elif [ -d ~/.tmp/see ]; then
+            rm -rf ~/.tmp/see
+        fi
+        cd ~/.tmp
+    fi
+}
+
+check_and_create_dir
+
+# Step 5: Clone the repository
+git clone https://github.com/Henrisen/see.git
+
+# Step 6: Enter the 'see' directory
+cd see
+
+# Step 7: Ask the user if they want to install 'See'
+while true; do
+    read -p "Requirements for See installer loaded. Install See? [Y/n] " user_input
+    case "$user_input" in
+        [Yy]* ) break;;   # Proceed with installation
+        [Nn]* ) echo "Aborting installation."; exit 0;;   # Abort installation
+        * ) echo "Please answer 'Y' or 'N'.";;  # Ask again
+    esac
+done
+
+# Step 8: Install See using make
+echo "Installing See..."
+sudo make install
+
+# Step 9: Check for errors and inform the user
+if [ $? -eq 0 ]; then
+    echo "Success: See has been installed successfully."
+else
+    echo "Error: There was an issue during installation."
+    exit 1
+fi

@@ -71,7 +71,7 @@ check_pip:
 check_pygments:
 	@if ! pip show Pygments &> /dev/null; then \
 		echo "Pygments is not installed. Installing..."; \
-		pip install Pygments 2>/dev/null \
+		pip install Pygments 2>/dev/null; \
 	else \
 		echo "Pygments is already installed."; \
 	fi
@@ -79,7 +79,7 @@ check_pygments:
 check_remove_pygments:
 	@if pip show Pygments &> /dev/null; then \
 		echo "Pygments is installed. Removing..."; \
-		pip uninstall -y Pygments 2>/dev/null \
+		pip uninstall -y Pygments 2>/dev/null; \
 	else \
 		echo "Pygments is already removed."; \
 	fi
