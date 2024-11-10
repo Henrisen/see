@@ -115,6 +115,19 @@ To use see, you need to run `see` followed by the name of the file you want to o
 see example.sh
 ```
 
+If you want to reload when the file updates, you can run `see` with the `-f` / `--follow` flag:
+
+```bash
+see -f example.sh
+```
+
+Using it this way, you will get a `No --update-interval provided. Using default value of 125 milliseconds` warning.
+You can prevent this by setting the `-u` / `--update-interval` flag to any value (by default `125`):
+
+```bash
+see -fu125 example.sh
+```
+
 ## Uninstalling
 
 ```bash
