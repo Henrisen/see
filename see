@@ -1,10 +1,15 @@
 #!/bin/bash
 
-function help () {
+command -v pygmentize >/dev/null 2>&1 || { echo "Error: pygmentize is required but not installed."; exit 1; }
+
+function help {
     echo "Usage: see [OPTION...] FILE"
     echo ""
-    echo "  -v --version    Print version information"
-    echo "  --help          Show this screen"
+    echo "  -v, --version           Print version information"
+    echo "      --help              Show this screen"
+    echo "  -f                      Follows Changes of File"
+    echo "  -u  --update-interval   Modify interval between Read Querys while following"
+    echo "                          changes in Milliseconds (ms)"
     echo ""
     echo "Mandatory or optional arguments to long options are also mandatory or optional"
     echo "for any corresponding short options."
@@ -12,29 +17,134 @@ function help () {
     echo "Report bugs to henri.sendelbach+see@proton.me."
 }
 
-if [ -z "$1" ]; then
-    help;
-    exit 1;
-fi
+function version {
+    echo "See v1.1.0"
+}
 
-if [ "$1" == "-v" ] || [ "$1" == "--version" ]; then
-    echo "See v1.0.0"
-    exit 0
-fi
+function show_file {
+    pygmentize -g "$1" | \
+        nl -ba -w \
+            $(wc -l < "$1" | awk '{print length}') \
+        -s $' | \033[0m' | \
+        sed 's/^/\x1b[90m/' | \
+        less -R
+}
 
-if [ "$1" == "--help" ]; then
-    help;
-    exit 0
-fi
+function show_file_following {
+    # Handle Ctrl+C gracefully
+    trap 'kill $less_pid 2>/dev/null; exit' INT
+    
+    # Function to format file
+    function format_file {
+        pygmentize -g "$1" | \
+            nl -ba -w \
+                $(wc -l < "$1" | awk '{print length}') \
+            -s $' | \033[0m' | \
+            sed 's/^/\x1b[90m/'
+    }
 
-if [ ! -f "$1" ]; then
-    echo "Error: File '$1' does not exist."
+    # Initialize checksum
+    previous_checksum=$(md5sum "$1" | awk '{ print $1 }')
+    
+    # Initial file display
+    less -RXf <(format_file "$1") &
+    less_pid=$!
+
+    # Convert milliseconds to seconds for sleep
+    sleep_duration=$(echo "scale=3; ${UPDATE_INTERVAL:-125} / 1000" | bc)
+
+    # Monitor file changes
+    while kill -0 "$less_pid" 2>/dev/null; do
+        sleep "$sleep_duration"
+        current_checksum=$(md5sum "$1" | awk '{ print $1 }')
+
+        if [ "$current_checksum" != "$previous_checksum" ]; then
+            tput clear
+            less -RXf <(format_file "$1") &
+            old_pid=$less_pid
+            less_pid=$!
+            kill $old_pid 2>/dev/null
+            previous_checksum=$current_checksum
+        fi
+    done
+}
+
+VALID_ARGS=$(getopt -o vfx:y:u: --long help,version,follow,update-interval: -- "$@" 2>&1)
+if [[ $? -ne 0 ]]; then
+    INVALID_ARG=$(echo "$VALID_ARGS" | grep -oP "(?<=invalid option -- ')[^']+")
+
+    echo "Invalid argument: -$INVALID_ARG" 1>&2
+    help
     exit 1
 fi
 
-pygmentize -g "$1" | \
-    nl -ba -w \
-        $(wc -l < "$1" | awk '{print length}') \
-    -s $' | \033[0m' | \
-    sed 's/^/\x1b[90m/' | \
-    less -R
+
+eval set -- "$VALID_ARGS"
+
+ENABLE_FOLLOW=false
+UPDATE_INTERVAL=
+
+while [ : ]; do
+    case "$1" in
+        --help)
+            help
+            exit 0
+            ;;
+        -v | --version)
+            version
+            exit 0
+            ;;
+        -f | --follow)
+            ENABLE_FOLLOW=true
+            shift
+            ;;
+        -u | --update-interval)
+            # Ensure the update interval is a valid number
+            if [[ ! "$2" =~ ^[0-9]+$ ]] || [ "$2" -lt 1 ]; then
+                echo "Error: --update-interval must be a number between 1 and infinity."
+                exit 1
+            fi
+            UPDATE_INTERVAL="$2"
+            shift 2
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Invalid argument: $1"
+            help
+            exit 1
+            ;;
+    esac
+done
+
+# Check if file is provided
+if [[ -z "$1" ]]; then
+    echo "Error: No file provided."
+    help
+    exit 1
+fi
+
+FILE="$1"
+
+# Check if the file exists
+if [[ ! -f "$FILE" ]]; then
+    echo "Error: File '$FILE' does not exist."
+    exit 1
+fi
+
+# Ensure that --update-interval is specified when --follow is enabled
+if [[ "$ENABLE_FOLLOW" == true ]] && [[ -z "$UPDATE_INTERVAL" ]]; then
+    UPDATE_INTERVAL=125  # Default value for update interval (in milliseconds)
+    echo "No --update-interval provided. Using default value of 125 milliseconds."
+fi
+
+# Check if Alternative Main for Following Updates is enabled
+if [[ "$ENABLE_FOLLOW" == true ]]; then
+    show_file_following "$FILE";
+    exit 0
+fi
+
+# Run Main Function
+show_file "$FILE";

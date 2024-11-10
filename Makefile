@@ -4,9 +4,9 @@ SHELL := /bin/bash
 
 all: no_command
 help: no_command
-install: check_sudo check_python check_pip check_pygments check_see install_see success
+install: check_sudo check_python check_pip check_pygments check_dependencies install_see success
 uninstall: check_sudo check_see_removeable uninstall_see uninstall_success
-full-uninstall: check_sudo check_python check_pip check_remove_pygments check_see_removeable uninstall_see uninstall_success
+full-uninstall: check_sudo check_python check_pip check_remove_pygments uninstall_see uninstall_success
 
 no_command:
 	@echo "Usage: make [command]"
@@ -33,6 +33,10 @@ check_python:
 			sudo yum install -y python3; \
 		elif [ -x "$$(command -v pacman)" ]; then \
 			sudo pacman -Sy python; \
+		elif [ -x "$$(command -v zypper)" ]; then \
+			sudo zypper install -y python3; \
+		elif [ -x "$$(command -v brew)" ]; then \
+			sudo brew install python3; \
 		else \
 			echo "Unsupported package manager. Please install Python3 manually."; \
 			exit 1; \
@@ -52,6 +56,10 @@ check_pip:
 			sudo yum install -y python3-pip; \
 		elif [ -x "$$(command -v pacman)" ]; then \
 			sudo pacman -Sy python-pip; \
+		elif [ -x "$$(command -v zypper)" ]; then \
+			sudo zypper install -y python3-pip; \
+		elif [ -x "$$(command -v brew)" ]; then \
+			sudo brew install python3-pip; \
 		else \
 			echo "Unsupported package manager. Please install pip manually."; \
 			exit 1; \
@@ -63,7 +71,7 @@ check_pip:
 check_pygments:
 	@if ! pip show Pygments &> /dev/null; then \
 		echo "Pygments is not installed. Installing..."; \
-		make install_pygments; \
+		pip install Pygments 2>/dev/null \
 	else \
 		echo "Pygments is already installed."; \
 	fi
@@ -71,27 +79,126 @@ check_pygments:
 check_remove_pygments:
 	@if pip show Pygments &> /dev/null; then \
 		echo "Pygments is installed. Removing..."; \
-		make remove_pygments; \
+		pip uninstall -y Pygments 2>/dev/null \
 	else \
 		echo "Pygments is already removed."; \
 	fi
 
-install_pygments:
-	@pip install Pygments 2>/dev/null
-
-remove_pygments:
-	@pip uninstall -y Pygments 2>/dev/null
-
-check_see:
-	@if command -v see &> /dev/null; then \
-		echo "See is already installed."; \
+check_dependencies:
+	@echo "Checking required system dependencies..."
+	@if ! command -v pygmentize &> /dev/null; then \
+		echo "pygmentize is required but not installed. Installing..."; \
+		if [ -x "$$(command -v apt)" ]; then \
+			sudo apt install -y python3-pygments; \
+		elif [ -x "$$(command -v dnf)" ]; then \
+			sudo dnf install -y python3-pygments; \
+		elif [ -x "$$(command -v pacman)" ]; then \
+			sudo pacman -Sy python-pygments; \
+		elif [ -x "$$(command -v zypper)" ]; then \
+			sudo zypper install -y python3-pygments; \
+		elif [ -x "$$(command -v brew)" ]; then \
+			sudo brew install python3-pygments; \
+		else \
+			echo "Unsupported package manager. Please install pygmentize manually."; \
+			exit 1; \
+		fi \
 	else \
-		echo "See is not installed. Proceeding to install..."; \
+		echo "pygmentize is already installed."; \
 	fi
 
-check_see_removeable:
-	@if ! command -v see &> /dev/null; then \
-		echo "See is already remooved."; \
+	@echo "Checking other required system dependencies..."
+	@if ! command -v less &> /dev/null; then \
+		echo "less is not installed. Installing..."; \
+		if [ -x "$$(command -v apt)" ]; then \
+			sudo apt install -y less; \
+		elif [ -x "$$(command -v dnf)" ]; then \
+			sudo dnf install -y less; \
+		elif [ -x "$$(command -v yum)" ]; then \
+			sudo yum install -y less; \
+		elif [ -x "$$(command -v pacman)" ]; then \
+			sudo pacman -Sy less; \
+		elif [ -x "$$(command -v zypper)" ]; then \
+			sudo zypper install -y less; \
+		elif [ -x "$$(command -v brew)" ]; then \
+			sudo brew install less; \
+		else \
+			echo "Unsupported package manager. Please install less manually."; \
+			exit 1; \
+		fi \
+	elif ! command -v bc &> /dev/null; then \
+		echo "bc is not installed. Installing..."; \
+		if [ -x "$$(command -v apt)" ]; then \
+			sudo apt install -y bc; \
+		elif [ -x "$$(command -v dnf)" ]; then \
+			sudo dnf install -y bc; \
+		elif [ -x "$$(command -v yum)" ]; then \
+			sudo yum install -y bc; \
+		elif [ -x "$$(command -v pacman)" ]; then \
+			sudo pacman -Sy bc; \
+		elif [ -x "$$(command -v zypper)" ]; then \
+			sudo zypper install -y bc; \
+		elif [ -x "$$(command -v brew)" ]; then \
+			sudo brew install bc; \
+		else \
+			echo "Unsupported package manager. Please install bc manually."; \
+			exit 1; \
+		fi \
+	elif ! command -v grep &> /dev/null; then \
+		echo "grep is not installed. Installing..."; \
+		if [ -x "$$(command -v apt)" ]; then \
+			sudo apt install -y grep; \
+		elif [ -x "$$(command -v dnf)" ]; then \
+			sudo dnf install -y grep; \
+		elif [ -x "$$(command -v yum)" ]; then \
+			sudo yum install -y grep; \
+		elif [ -x "$$(command -v pacman)" ]; then \
+			sudo pacman -Sy grep; \
+		elif [ -x "$$(command -v zypper)" ]; then \
+			sudo zypper install -y grep; \
+		elif [ -x "$$(command -v brew)" ]; then \
+			sudo brew install grep; \
+		else \
+			echo "Unsupported package manager. Please install grep manually."; \
+			exit 1; \
+		fi \
+	elif ! command -v awk &> /dev/null; then \
+		echo "awk is not installed. Installing..."; \
+		if [ -x "$$(command -v apt)" ]; then \
+			sudo apt install -y gawk; \
+		elif [ -x "$$(command -v dnf)" ]; then \
+			sudo dnf install -y gawk; \
+		elif [ -x "$$(command -v yum)" ]; then \
+			sudo yum install -y gawk; \
+		elif [ -x "$$(command -v pacman)" ]; then \
+			sudo pacman -Sy gawk; \
+		elif [ -x "$$(command -v zypper)" ]; then \
+			sudo zypper install -y gawk; \
+		elif [ -x "$$(command -v brew)" ]; then \
+			sudo brew install gawk; \
+		else \
+			echo "Unsupported package manager. Please install gawk manually."; \
+			exit 1; \
+		fi \
+	elif ! command -v wc &> /dev/null; then \
+		echo "wc is not installed. Installing..."; \
+		if [ -x "$$(command -v apt)" ]; then \
+			sudo apt install -y coreutils; \
+		elif [ -x "$$(command -v dnf)" ]; then \
+			sudo dnf install -y coreutils; \
+		elif [ -x "$$(command -v yum)" ]; then \
+			sudo yum install -y coreutils; \
+		elif [ -x "$$(command -v pacman)" ]; then \
+			sudo pacman -Sy coreutils; \
+		elif [ -x "$$(command -v zypper)" ]; then \
+			sudo zypper install -y coreutils; \
+		elif [ -x "$$(command -v brew)" ]; then \
+			sudo brew install coreutils; \
+		else \
+			echo "Unsupported package manager. Please install coreutils manually."; \
+			exit 1; \
+		fi \
+	else \
+		echo "All required dependencies (less, bc, grep, awk, wc) are installed."; \
 	fi
 
 install_see:
