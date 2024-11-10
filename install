@@ -86,6 +86,11 @@ check_and_create_dir() {
     if [ -w /tmp ]; then
         echo "Using /tmp directory."
         cd /tmp
+        if [ -f /tmp/see ]; then
+                rm /tmp/see
+            elif [ -d /tmp/see ]; then
+                rm -rf /tmp/see
+            fi
     else
         if [ ! -d ~/.tmp ]; then
             mkdir ~/.tmp
