@@ -1,5 +1,10 @@
 # See
-
+> **S**can
+> 
+> **E**xplore
+>
+> **E**xamine
+---
 [![Makefile CI](https://github.com/Henrisen/see/actions/workflows/makefile.yml/badge.svg)](https://github.com/Henrisen/see/actions/workflows/makefile.yml)
 
 ## Summary
