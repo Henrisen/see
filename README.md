@@ -12,6 +12,7 @@
 ![BSD3 License](https://img.shields.io/badge/License-BSD--3--Clause-yellow)
 
 ## Table of Contents
+
 - [Supported Operating Systems](#supported-operating-systems)
 - [Summary](#summary)
 - [Installing](#installing)

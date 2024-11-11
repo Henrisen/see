@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 all: no_command
 help: no_command
-install: check_sudo check_python check_pip check_pygments check_dependencies install_see success
+install: check_sudo check_python check_pip check_dependencies install_see success
 uninstall: check_sudo check_see_removeable uninstall_see uninstall_success
 full-uninstall: check_sudo check_python check_pip check_remove_pygments uninstall_see uninstall_success
 
@@ -68,21 +68,26 @@ check_pip:
 		echo "Pip is already installed."; \
 	fi
 
-check_pygments:
-	@if ! pip show Pygments &> /dev/null; then \
-		echo "Pygments is not installed. Installing..."; \
-		pip install Pygments 2>/dev/null; \
-	else \
-		echo "Pygments is already installed."; \
-	fi
-
 check_remove_pygments:
-	@if pip show Pygments &> /dev/null; then \
-		echo "Pygments is installed. Removing..."; \
-		pip uninstall -y Pygments 2>/dev/null; \
-	else \
-		echo "Pygments is already removed."; \
-	fi
+	@if command -v pygmentize &> /dev/null; then \
+        echo "pygmentize is installed, Removing..."; \
+        if command -v apt &> /dev/null; then \
+            sudo apt remove -y python3-pygments; \
+        elif command -v dnf &> /dev/null; then \
+            sudo dnf remove -y python3-pygments; \
+        elif command -v pacman &> /dev/null; then \
+            sudo pacman -R python-pygments; \
+        elif command -v zypper &> /dev/null; then \
+            sudo zypper remove -y python3-pygments; \
+        elif command -v brew &> /dev/null; then \
+            brew uninstall pygments; \
+        else \
+            echo "Package manager not recognized. Please remove pygmentize manually."; \
+            exit 1; \
+        fi \
+    else \
+        echo "pygmentize is not installed."; \
+    fi
 
 check_dependencies:
 	@echo "Checking required system dependencies..."
