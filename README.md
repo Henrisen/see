@@ -1,12 +1,23 @@
 # See
 
-> **S**can
->
-> **E**xplore
->
-> **E**xamine
+> **S**can  
+> **E**xplore  
+> **E**xamine  
+
 ---
+
 [![Makefile CI](https://github.com/Henrisen/see/actions/workflows/makefile.yml/badge.svg)](https://github.com/Henrisen/see/actions/workflows/makefile.yml)
+
+## Table of Contents
+- [Supported Operating Systems](#supported-operating-systems)
+- [Summary](#summary)
+- [Installing](#installing)
+  - [For Linux and macOS](#for-linux-and-macos)
+  - [Quick Install](#quick-install)
+- [Usage](#usage)
+- [Uninstalling](#uninstalling)
+- [License](#license)
+- [Contributing](#contributing)
 
 ## Supported Operating Systems
 
@@ -19,10 +30,9 @@
 | ![Windows (WSL)](https://img.shields.io/badge/Windows-WSL-blue)                             | Supported  |
 | ![Windows (Non-WSL)](https://img.shields.io/badge/Windows-Non--WSL%20Not%20Supported-red)  | Not Supported  |
 
-
 ## Summary
 
-A Simple File Viewer with Syntax Highlighting for Linux and MacOS
+A simple file viewer with syntax highlighting for Linux and macOS.
 
 ![Screenshot of see](https://github.com/Henrisen/see/blob/main/.github/resources/1.png?raw=true)
 
@@ -30,7 +40,7 @@ A Simple File Viewer with Syntax Highlighting for Linux and MacOS
 
 The `see` tool is a command-line utility for viewing files in a user-friendly manner. Follow the steps below to install `see` on your supported operating systems. Ensure you have `curl` installed.
 
-### For Linux and MacOS
+### For Linux and macOS
 
 #### 1. Check if `curl` is installed
 
@@ -42,35 +52,34 @@ command -v curl >/dev/null 2>&1 && echo "YES" || echo "NO"
 
 If the previous command outputs `YES`, then `curl` is installed and you can continue.
 
-If it returns `NO`, then `curl` is not installed. In this case you should check how to install `curl` on your system and then repeat this Step
+If it returns `NO`, then `curl` is not installed. In this case, please check how to install `curl` on your system and then repeat this step.
 
-#### 2. Download the Installer from the Official Github
+#### 2. Download the Installer from the Official GitHub
 
-First, you have to remove any outdated version of the installer from your current working directory if present. Check if the installer is already present and remove it using this command:
+Remove any outdated installer from your current working directory, if present:
 
 ```bash
 [ -f ./install ] && rm -f ./install
 ```
 
-This command will use `curl` to download the installer into the current working directory:
+Next, use `curl` to download the latest installer:
 
 ```bash
 curl -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install
 ```
 
-#### 3. Run the installer
+#### 3. Run the Installer
 
-You will need sudo permissions to run the installer. To run the installer, run these commands:
+You will need sudo permissions to run the installer. Use the following commands:
 
 ```bash
 chmod +x ./install
-
 sudo ./install
 ```
 
-#### Quick Install
+### Quick Install
 
-If you want one quick install command, use this:
+To install `see` with a single command:
 
 ```bash
 command -v curl >/dev/null 2>&1 || { echo "curl is not installed. Please install curl and try again."; exit 1; } && rm -f ./install && curl -s -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install && chmod +x ./install && sudo ./install
@@ -78,20 +87,19 @@ command -v curl >/dev/null 2>&1 || { echo "curl is not installed. Please install
 
 ## Usage
 
-To use see, you need to run `see` followed by the name of the file you want to open:
+To use `see`, run it with the name of the file you want to open:
 
 ```bash
 see example.sh
 ```
 
-If you want to reload when the file updates, you can run `see` with the `-f` / `--follow` flag:
+For real-time file updates, use the `-f` / `--follow` flag:
 
 ```bash
 see -f example.sh
 ```
 
-Using it this way, you will get a `No --update-interval provided. Using default value of 125 milliseconds` warning.
-You can prevent this by setting the `-u` / `--update-interval` flag to any value (by default `125`):
+For custom update intervals, use the `-u` / `--update-interval` flag (default is 125 ms):
 
 ```bash
 see -fu125 example.sh
@@ -99,8 +107,26 @@ see -fu125 example.sh
 
 ## Uninstalling
 
+To uninstall `see`, use the following commands:
+
 ```bash
 git clone https://github.com/Henrisen/see.git
 cd see
 sudo make uninstall
 ```
+
+---
+
+## License
+
+This project is licensed under the **BSD 3-Clause License**. See the [LICENSE file](LICENSE) for more details.
+
+## Contributing
+
+Contributions to this project are welcome. Please fork the repository, make your changes, and submit a pull request. Ensure your code adheres to the project’s coding standards and includes relevant tests.
+
+1. Fork the repository
+2. Create a new branch for your feature
+3. Commit your changes
+4. Push your branch to your fork
+5. Open a pull request
