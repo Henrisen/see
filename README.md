@@ -61,8 +61,7 @@ sudo ./install
 If you want one quick install command, use this:
 
 ```bash
-command -v curl >/dev/null 2>&1 || { echo "curl is not installed. Please install curl and try again."; exit 1; } && [ -f ./install ] && rm -f ./install && curl -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install && chmod +x ./install && sudo ./install
-
+command -v curl >/dev/null 2>&1 || { echo "curl is not installed. Please install curl and try again."; exit 1; } && rm -f ./install && curl -s -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install && chmod +x ./install && sudo ./install
 ```
 
 ## Usage
