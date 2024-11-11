@@ -7,7 +7,9 @@
 ---
 
 [![Makefile CI](https://github.com/Henrisen/see/actions/workflows/makefile.yml/badge.svg)](https://github.com/Henrisen/see/actions/workflows/makefile.yml)
-![Single Command Install](https://img.shields.io/badge/Installation-Single_Command_Install-yellow)
+![Single Command Install](https://img.shields.io/badge/Installation-Single_Command_Install-ok)
+![1 User](https://img.shields.io/badge/Users-1-ok)
+![BSD3 License](https://img.shields.io/badge/License-BSD--3--Clause-yellow)
 
 ## Table of Contents
 - [Supported Operating Systems](#supported-operating-systems)
