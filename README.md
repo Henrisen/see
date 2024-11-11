@@ -21,14 +21,12 @@
 
 ## Supported Operating Systems
 
-| Operating System               | Support Status            |
-|--------------------------------|---------------------------|
-| ![Debian-based Linux](https://img.shields.io/badge/Linux-Debian%20%7C%20Ubuntu-green)      | Supported  |
-| ![Red Hat-based Linux](https://img.shields.io/badge/Linux-Fedora%20%7C%20RHEL%20%7C%20Rocky-blue) | Supported  |
-| ![Arch-based Linux](https://img.shields.io/badge/Linux-Arch%20%7C%20Manjaro-1793d1)       | Supported  |
-| ![macOS](https://img.shields.io/badge/macOS-Supported-ff69b4)                               | Supported  |
-| ![Windows (WSL)](https://img.shields.io/badge/Windows-WSL-blue)                             | Supported  |
-| ![Windows (Non-WSL)](https://img.shields.io/badge/Windows-Non--WSL%20Not%20Supported-red)  | Not Supported  |
+![Debian-based Linux](https://img.shields.io/badge/Linux-Supported-green)
+![Red Hat-based Linux](https://img.shields.io/badge/Linux-Supported-green)
+![Arch-based Linux](https://img.shields.io/badge/Linux-Supported-green)
+![macOS](https://img.shields.io/badge/macOS-Supported-green)
+![Windows (WSL)](https://img.shields.io/badge/Windows-WSL%20Supported-green)
+![Windows (Non-WSL)](https://img.shields.io/badge/Windows-Non--WSL%20Not%20Supported-red)
 
 ## Summary
 
