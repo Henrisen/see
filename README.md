@@ -18,100 +18,52 @@ A Simple File Viewer with Syntax Highlighting for Linux and MacOS
 
 The `see` tool is a command-line utility for viewing files in a user-friendly manner. Follow the steps below to install `see` on your supported operating systems. Ensure you have Git and `make` installed.
 
-### For Linux
+### For Linux and MacOS
 
-#### **Debian/Ubuntu**
+#### 1. Check if `curl` is installed
 
-- **Step 1:** Install Git and `make` (if not already installed):
+Run this command to check if `curl` is installed:
 
-    ```bash
-    sudo apt update
-    sudo apt install git make
-    ```
+```bash
+command -v curl >/dev/null 2>&1 && echo "YES" || echo "NO"
+```
 
-- **Step 2:** Install the `see` tool:
+If the previous command outputs `YES`, then `curl` is installed and you can continue.
 
-    ```bash
-    git clone https://github.com/Henrisen/see.git
-    cd see
-    sudo make install
-    ```
+If it returns `NO`, then `curl` is not installed. In this case you should check how to install `curl` on your system and then repeat this Step
 
-- **Step 3:** Verify the installation:
+#### 2. Download the Installer from the Official Github
 
-    ```bash
-    see --version  # Check the installed version of see
-    ```
+First, you have to remove any outdated version of the installer from your current working directory if present. Check if the installer is already present and remove it using this command:
 
-#### **Fedora**
+```bash
+[ -f ./install ] && rm -f ./install
+```
 
-- **Step 1:** Install Git and `make`:
+This command will use `curl` to download the installer into the current working directory:
 
-    ```bash
-    sudo dnf install git make
-    ```
+```bash
+curl -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install
+```
 
-- **Step 2:** Install the `see` tool:
+#### 3. Run the installer
 
-    ```bash
-    git clone https://github.com/Henrisen/see.git
-    cd see
-    sudo make install
-    ```
+You will need sudo permissions to run the installer. To run the installer, run these commands:
 
-#### **CentOS/RHEL**
+```bash
+chmod +x ./install
 
-- **Step 1:** Enable the EPEL repository (if not already enabled):
+sudo ./install
+```
 
-    ```bash
-    sudo yum install epel-release
-    ```
+#### Quick Install
 
-- **Step 2:** Install Git and `make`:
+If you want one quick install command, use this:
 
-    ```bash
-    sudo yum install git make
-    ```
+```bash
+command -v curl >/dev/null 2>&1 || { echo "curl is not installed. Please install curl and try again."; exit 1; } && [ -f ./install ] && rm -f ./install && curl -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install && chmod +x ./install && sudo ./install
 
-- **Step 3:** Install the `see` tool:
-
-    ```bash
-    git clone https://github.com/Henrisen/see.git
-    cd see
-    sudo make install
-    ```
-
-#### **Arch Linux**
-
-- **Step 1:** Install Git and `make`:
-
-    ```bash
-    sudo pacman -S git make
-    ```
-
-- **Step 2:** Install the `see` tool:
-
-    ```bash
-    git clone https://github.com/Henrisen/see.git
-    cd see
-    sudo make install
-    ```
-
-### For macOS
-
-- **Step 1:** Install Git and `make` (if not already installed):
-
-    ```bash
-    brew install git make
-    ```
-
-- **Step 2:** Install the `see` tool:
-
-    ```bash
-    git clone https://github.com/Henrisen/see.git
-    cd see
-    sudo make install
-    ```
+```
 
 ## Usage
 

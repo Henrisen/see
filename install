@@ -112,6 +112,9 @@ git clone https://github.com/Henrisen/see.git
 # Step 6: Enter the 'see' directory
 cd see
 
+# Step 6.1: Run Cleanup
+rm -rf .git .github install LICENSE README.md
+
 # Step 7: Ask the user if they want to install 'See'
 while true; do
     read -p "Requirements for See installer loaded. Install See? [Y/n] " user_input
