@@ -7,6 +7,7 @@
 ---
 
 [![Makefile CI](https://github.com/Henrisen/see/actions/workflows/makefile.yml/badge.svg)](https://github.com/Henrisen/see/actions/workflows/makefile.yml)
+![Single Command Install](https://img.shields.io/badge/Installation-Single_Command_Install-yellow)
 
 ## Table of Contents
 - [Supported Operating Systems](#supported-operating-systems)
