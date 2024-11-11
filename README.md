@@ -8,6 +8,18 @@
 ---
 [![Makefile CI](https://github.com/Henrisen/see/actions/workflows/makefile.yml/badge.svg)](https://github.com/Henrisen/see/actions/workflows/makefile.yml)
 
+## Supported Operating Systems
+
+| Operating System               | Support Status            |
+|--------------------------------|---------------------------|
+| ![Debian-based Linux](https://img.shields.io/badge/Linux-Debian%20%7C%20Ubuntu-green)      | Supported  |
+| ![Red Hat-based Linux](https://img.shields.io/badge/Linux-Fedora%20%7C%20RHEL%20%7C%20Rocky-blue) | Supported  |
+| ![Arch-based Linux](https://img.shields.io/badge/Linux-Arch%20%7C%20Manjaro-1793d1)       | Supported  |
+| ![macOS](https://img.shields.io/badge/macOS-Supported-ff69b4)                               | Supported  |
+| ![Windows (WSL)](https://img.shields.io/badge/Windows-WSL-blue)                             | Supported  |
+| ![Windows (Non-WSL)](https://img.shields.io/badge/Windows-Non--WSL%20Not%20Supported-red)  | Not Supported  |
+
+
 ## Summary
 
 A Simple File Viewer with Syntax Highlighting for Linux and MacOS
