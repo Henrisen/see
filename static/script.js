@@ -28,7 +28,7 @@ let particles = [];
 let r=0.5329815303430079;
 // Image for the background
 const backgroundImage = new Image();
-backgroundImage.src = './.github/resources/2.png'; // Random image from Lorem Picsum
+backgroundImage.src = https://github.com/Henrisen/see/blob/main/.github/resources/2.png?raw=true; // Random image from Lorem Picsum
 
 // Function to create new particle
 function createParticle(x, y) {
