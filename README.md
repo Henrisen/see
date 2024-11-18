@@ -17,6 +17,7 @@
 - [Summary](#summary)
 - [Installing](#installing)
   - [For Linux and macOS](#for-linux-and-macos)
+  - [For Windows (WIP)](#for-windows)
   - [Quick Install](#quick-install)
 - [Usage](#usage)
 - [Uninstalling](#uninstalling)
@@ -25,12 +26,12 @@
 
 ## Supported Operating Systems
 
-![Debian-based Linux](https://img.shields.io/badge/Linux-Supported-green)
-![Red Hat-based Linux](https://img.shields.io/badge/Linux-Supported-green)
-![Arch-based Linux](https://img.shields.io/badge/Linux-Supported-green)
-![macOS](https://img.shields.io/badge/macOS-Supported-green)
+![Debian-based Linux](https://img.shields.io/badge/Debian_Linux-Supported-green)
+![Red Hat-based Linux](https://img.shields.io/badge/Red_Hat_Linux-Supported-green)
+![Arch-based Linux](https://img.shields.io/badge/Arch_Linux-Supported-green)
+![macOS](https://img.shields.io/badge/MacOS-Supported-green)
 ![Windows (WSL)](https://img.shields.io/badge/Windows-WSL%20Supported-green)
-![Windows (Non-WSL)](https://img.shields.io/badge/Windows-Non--WSL%20Not%20Supported-red)
+![Windows (Non-WSL)](https://img.shields.io/badge/Windows-Non--WSL%20Partially%20Supported-yellow)
 
 ## Summary
 
@@ -56,7 +57,7 @@ If the previous command outputs `YES`, then `curl` is installed and you can cont
 
 If it returns `NO`, then `curl` is not installed. In this case, please check how to install `curl` on your system and then repeat this step.
 
-#### 2. Download the Installer from the Official GitHub
+#### 2. Download the Installer from my Official GitHub
 
 Remove any outdated installer from your current working directory, if present:
 
@@ -79,12 +80,56 @@ chmod +x ./install
 sudo ./install
 ```
 
+### For Windows
+
+#### 1. Check if `curl` is installed
+
+Run this command to check if `curl` is installed:
+
+```cmd
+where curl >nul 2>&1 && echo YES || echo NO
+```
+
+If the previous command outputs `YES`, then `curl` is installed and you can continue.
+
+If it returns `NO`, then `curl` is not installed. In this case, please check how to install `curl` on your system and then repeat this step.
+
+#### 2. Download the Installer from my Official GitHub
+
+Remove any outdated installer from your current working directory, if present:
+
+```cmd
+if exist .\install del /f .\install
+```
+
+Next, use `curl` to download the latest installer:
+
+```cmd
+curl -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install.bat
+```
+
+#### 3. Run the Installer
+
+You will need sudo permissions to run the installer. Use the following commands:
+
+```cmd
+.\install.bat
+```
+
 ### Quick Install
 
 To install `see` with a single command:
 
+### Linux
+
 ```bash
 command -v curl >/dev/null 2>&1 || { echo "curl is not installed. Please install curl and try again."; } && rm -f ./install && curl -s -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install && chmod +x ./install && sudo ./install
+```
+
+#### Windows
+
+```cmd
+where curl >nul 2>&1 || (echo "curl is not installed. Please install curl and try again." & pause & exit /b) && (if exist installer.bat del /f installer.bat) & curl -s -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install.bat && (if exist install.bat call install.bat || (echo Failed to download installer.bat. & pause))
 ```
 
 ## Usage
@@ -96,12 +141,14 @@ see example.sh
 ```
 
 For real-time file updates, use the `-f` / `--follow` flag:
+> Currently only on Unix Version
 
 ```bash
 see -f example.sh
 ```
 
 For custom update intervals, use the `-u` / `--update-interval` flag (default is 125 ms):
+> Currently only on Unix Version
 
 ```bash
 see -fu125 example.sh
