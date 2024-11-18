@@ -7,7 +7,7 @@ function help {
     echo ""
     echo "  -v, --version           Print version information"
     echo "      --help              Show this screen"
-    echo "  -f                      Follows Changes of File"
+    echo "  -f  --follow            Follows Changes of File"
     echo "  -u  --update-interval   Modify interval between Read Querys while following"
     echo "                          changes in Milliseconds (ms)"
     echo ""
