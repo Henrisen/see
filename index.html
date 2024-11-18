@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See - Scan, Explore, Examine</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <header id="header">
+        <canvas id="background"></canvas>
+        <div class="header-content">
+            <h1>See</h1>
+            <p>Scan • Explore • Examine</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#summary">Summary</a></li>
+            <li><a href="#installing">Installing</a></li>
+            <li><a href="#usage">Usage</a></li>
+            <li><a href="#license">License</a></li>
+            <li><a href="#contributing">Contributing</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="summary">
+            <img src="https://github.com/Henrisen/see/blob/main/.github/resources/1.png?raw=true" alt="Screenshot of See">
+            <h2>Summary</h2>
+            <p>A simple file viewer with syntax highlighting for Linux and macOS.</p>
+        </section>
+
+        <section id="installing">
+            <h2>Installing</h2>
+            <p>The <strong>see</strong> tool is a command-line utility for viewing files in a user-friendly manner. Follow the steps below to install <strong>see</strong> on your supported operating systems. Ensure you have <code>curl</code> installed.</p>
+
+            <h3>For Linux and macOS</h3>
+            <h4>1. Check if <code>curl</code> is installed</h4>
+            <pre><code>command -v curl >/dev/null 2>&1 && echo "YES" || echo "NO"</code></pre>
+
+            <h4>2. Download the Installer from my Official GitHub</h4>
+            <pre><code>curl -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install</code></pre>
+
+            <h4>3. Run the Installer</h4>
+            <pre><code>chmod +x ./install && sudo ./install</code></pre>
+
+            <h3>For Windows</h3>
+            <h4>1. Check if <code>curl</code> is installed</h4>
+            <pre><code>where curl >nul 2>&1 && echo YES || echo NO</code></pre>
+
+            <h4>2. Download the Installer from my Official GitHub</h4>
+            <pre><code>curl -O https://raw.githubusercontent.com/Henrisen/see/refs/heads/main/install.bat</code></pre>
+
+            <h4>3. Run the Installer</h4>
+            <pre><code>.\install.bat</code></pre>
+        </section>
+
+        <section id="usage">
+            <h2>Usage</h2>
+            <p>To use <strong>see</strong>, run it with the name of the file you want to open:</p>
+            <pre><code>see example.sh</code></pre>
+
+            <p>For real-time file updates, use the <code>-f</code> / <code>--follow</code> flag:</p>
+            <pre><code>see -f example.sh</code></pre>
+
+            <p>For custom update intervals, use the <code>-u</code> / <code>--update-interval</code> flag (default is 125 ms):</p>
+            <pre><code>see -fu125 example.sh</code></pre>
+        </section>
+
+        <section id="license">
+            <h2>License</h2>
+            <p>This project is licensed under the <strong>BSD 3-Clause License</strong>. See the <a href="https://github.com/Henrisen/see/blob/main/LICENSE" target="_blank">LICENSE</a> file for more details.</p>
+        </section>
+
+        <section id="contributing">
+            <h2>Contributing</h2>
+            <p>Contributions to this project are welcome. Please fork the repository, make your changes, and submit a pull request. Ensure your code adheres to the project’s coding standards and includes relevant tests.</p>
+            <ol>
+                <li>Fork the repository</li>
+                <li>Create a new branch for your feature</li>
+                <li>Commit your changes</li>
+                <li>Push your branch to your fork</li>
+                <li>Open a pull request</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 See Tool by Henrisen. All Rights Reserved.</p>
+    </footer>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
