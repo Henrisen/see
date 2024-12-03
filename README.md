@@ -30,8 +30,8 @@
 ![Red Hat-based Linux](https://img.shields.io/badge/Red_Hat_Linux-Supported-green)
 ![Arch-based Linux](https://img.shields.io/badge/Arch_Linux-Supported-green)
 ![macOS](https://img.shields.io/badge/MacOS-Supported-green)
-![Windows (WSL)](https://img.shields.io/badge/Windows-WSL%20Supported-green)
-![Windows (Non-WSL)](https://img.shields.io/badge/Windows-Non--WSL%20Partially%20Supported-yellow)
+![Windows (WSL)](https://img.shields.io/badge/Windows--(WSL)-Supported-green)
+![Windows (Non-WSL)](https://img.shields.io/badge/Windows--(Non--WSL)-Partially%20Supported-yellow)
 
 ## Summary
 
