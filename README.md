@@ -35,7 +35,7 @@
 
 ## Summary
 
-A simple file viewer with syntax highlighting for Linux and macOS.
+A simple file viewer with syntax highlighting for Linux, Windows and macOS.
 
 ![Screenshot of see](https://github.com/Henrisen/see/blob/main/.github/resources/1.png?raw=true)
 
