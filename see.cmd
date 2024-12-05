@@ -41,8 +41,8 @@ exit /b 0
 :version
     echo See v1.2.0 (WIN) Beta
     echo.
-    echo This is an EXPERIMANTAL Windows Port with reduced
-    echo Features
+    echo This is an EXPERIMANTAL Windows Build with a reduced
+    echo Feature Set
     echo.
     echo Expect Bugs, Crashes OR Simmilar
     exit /b 0
