@@ -12,6 +12,10 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
 # Step 2: Check if sudo is installed
 if ! command -v sudo &>/dev/null; then
     echo "Sudo is not installed. Installing..."
@@ -43,9 +47,6 @@ else
 fi
 
 # Step 3: Install git and make if not installed
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
 
 install_required_packages() {
     if ! command_exists git || ! command_exists make; then
