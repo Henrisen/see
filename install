@@ -16,6 +16,8 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+tput smcup
+
 # Step 2: Check if sudo is installed
 if ! command_exists sudo; then
     echo "Sudo is not installed. Installing..."
@@ -86,12 +88,12 @@ install_required_packages
 check_and_create_dir() {
     if [ -w /tmp ]; then
         echo "Using /tmp directory."
-        cd /tmp
         if [ -f /tmp/see ]; then
-                rm /tmp/see
-            elif [ -d /tmp/see ]; then
-                rm -rf /tmp/see
-            fi
+            rm /tmp/see
+        elif [ -d /tmp/see ]; then
+            rm -rf /tmp/see
+        fi
+        cd /tmp
     else
         if [ ! -d ~/.tmp ]; then
             mkdir ~/.tmp
@@ -116,19 +118,55 @@ cd see
 # Step 6.1: Run Cleanup
 rm -rf .git .github install LICENSE README.md
 
+echo
+echo "|------------------------------|"
+echo "| Press Any Key to Continue... |"
+echo "| Continuing in 10 Seconds...  |"
+echo "|------------------------------|"
+read -t 10 -n 1 && echo -en "\b"
+tput rmcup
+
 # Step 7: Ask the user if they want to install 'See'
+tput smcup
 while true; do
     read -p "Requirements for See installer loaded. Install See? [Y/n] " user_input
     case "$user_input" in
         [Yy]* ) break;;   # Proceed with installation
-        [Nn]* ) echo "Aborting installation."; exit 0;;   # Abort installation
-        * ) echo "Please answer 'Y' or 'N'.";;  # Ask again
+        [Nn]* ) echo "Aborting installation."; tput rmcup; exit 0;;   # Abort installation
+        * ) echo -e "\nPlease answer 'Y' or 'N'.";;  # Ask again
     esac
 done
+tput rmcup
 
+tput smcup
 # Step 8: Install See using make
 echo "Installing See..."
 sudo make install
+
+echo
+echo "|------------------------------|"
+echo "| Press Any Key to Continue... |"
+echo "| Continuing in 10 Seconds...  |"
+echo "|------------------------------|"
+read -t 10 -n 1 && echo -en "\b"
+tput rmcup
+
+check_and_remove_dir() {
+    if [ -w /tmp ]; then
+        if [ -d /tmp/see ]; then
+            rm -rf /tmp/see
+        fi
+    else
+        if [ ! -d ~/.tmp ]; then
+            return
+        fi
+        if [ -d ~/.tmp/see ]; then
+            rm -rf ~/.tmp/see
+        fi
+    fi
+}
+
+check_and_remove_dir
 
 # Step 9: Check for errors and inform the user
 if [ $? -eq 0 ]; then
