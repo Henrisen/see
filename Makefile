@@ -32,7 +32,7 @@ check_python:
 		elif [ -x "$$(command -v yum)" ]; then \
 			sudo yum install -y python3; \
 		elif [ -x "$$(command -v pacman)" ]; then \
-			sudo pacman -Sy python; \
+			sudo pacman --noconfirm -Sy python; \
 		elif [ -x "$$(command -v zypper)" ]; then \
 			sudo zypper install -y python3; \
 		elif [ -x "$$(command -v brew)" ]; then \
@@ -55,7 +55,7 @@ check_pip:
 		elif [ -x "$$(command -v yum)" ]; then \
 			sudo yum install -y python3-pip; \
 		elif [ -x "$$(command -v pacman)" ]; then \
-			sudo pacman -Sy python-pip; \
+			sudo pacman --noconfirm -Sy python-pip; \
 		elif [ -x "$$(command -v zypper)" ]; then \
 			sudo zypper install -y python3-pip; \
 		elif [ -x "$$(command -v brew)" ]; then \
@@ -76,7 +76,7 @@ check_remove_pygments:
         elif command -v dnf &> /dev/null; then \
             sudo dnf remove -y python3-pygments; \
         elif command -v pacman &> /dev/null; then \
-            sudo pacman -R python-pygments; \
+            sudo pacman --noconfirm -R python-pygments; \
         elif command -v zypper &> /dev/null; then \
             sudo zypper remove -y python3-pygments; \
         elif command -v brew &> /dev/null; then \
@@ -98,7 +98,7 @@ check_dependencies:
 		elif [ -x "$$(command -v dnf)" ]; then \
 			sudo dnf install -y python3-pygments; \
 		elif [ -x "$$(command -v pacman)" ]; then \
-			sudo pacman -Sy python-pygments; \
+			sudo pacman --noconfirm -Sy python-pygments; \
 		elif [ -x "$$(command -v zypper)" ]; then \
 			sudo zypper install -y python3-pygments; \
 		elif [ -x "$$(command -v brew)" ]; then \
@@ -121,7 +121,7 @@ check_dependencies:
 		elif [ -x "$$(command -v yum)" ]; then \
 			sudo yum install -y less; \
 		elif [ -x "$$(command -v pacman)" ]; then \
-			sudo pacman -Sy less; \
+			sudo pacman --noconfirm -Sy less; \
 		elif [ -x "$$(command -v zypper)" ]; then \
 			sudo zypper install -y less; \
 		elif [ -x "$$(command -v brew)" ]; then \
@@ -139,7 +139,7 @@ check_dependencies:
 		elif [ -x "$$(command -v yum)" ]; then \
 			sudo yum install -y bc; \
 		elif [ -x "$$(command -v pacman)" ]; then \
-			sudo pacman -Sy bc; \
+			sudo pacman --noconfirm -Sy bc; \
 		elif [ -x "$$(command -v zypper)" ]; then \
 			sudo zypper install -y bc; \
 		elif [ -x "$$(command -v brew)" ]; then \
@@ -157,7 +157,7 @@ check_dependencies:
 		elif [ -x "$$(command -v yum)" ]; then \
 			sudo yum install -y grep; \
 		elif [ -x "$$(command -v pacman)" ]; then \
-			sudo pacman -Sy grep; \
+			sudo pacman --noconfirm -Sy grep; \
 		elif [ -x "$$(command -v zypper)" ]; then \
 			sudo zypper install -y grep; \
 		elif [ -x "$$(command -v brew)" ]; then \
@@ -175,7 +175,7 @@ check_dependencies:
 		elif [ -x "$$(command -v yum)" ]; then \
 			sudo yum install -y gawk; \
 		elif [ -x "$$(command -v pacman)" ]; then \
-			sudo pacman -Sy gawk; \
+			sudo pacman --noconfirm -Sy gawk; \
 		elif [ -x "$$(command -v zypper)" ]; then \
 			sudo zypper install -y gawk; \
 		elif [ -x "$$(command -v brew)" ]; then \
@@ -193,7 +193,7 @@ check_dependencies:
 		elif [ -x "$$(command -v yum)" ]; then \
 			sudo yum install -y coreutils; \
 		elif [ -x "$$(command -v pacman)" ]; then \
-			sudo pacman -Sy coreutils; \
+			sudo pacman --noconfirm -Sy coreutils; \
 		elif [ -x "$$(command -v zypper)" ]; then \
 			sudo zypper install -y coreutils; \
 		elif [ -x "$$(command -v brew)" ]; then \
